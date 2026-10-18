@@ -19,9 +19,9 @@ Common options:
   -s, --sort             Sort inputs by name (natural order) instead of argument order
 
 Text options:
-  --no-headers           Do not write a "===== name =====" header per file
+  --headers              Write a "===== name =====" header before each file
   --header <template>    Header template; supports {name}, {index}, {total}
-  --separator <text>     Text between files (default "\\n\\n"); \\n and \\t are understood
+  --separator <text>     Text between files (default "\\n"); \\n and \\t are understood
   --no-trim              Keep leading/trailing whitespace of each file
   --keep-empty           Keep files that are empty
   --crlf                 Write Windows (CRLF) line endings
@@ -70,7 +70,7 @@ async function main() {
     options: {
       output: { type: 'string', short: 'o' },
       sort: { type: 'boolean', short: 's', default: false },
-      'no-headers': { type: 'boolean', default: false },
+      headers: { type: 'boolean', default: false },
       header: { type: 'string' },
       separator: { type: 'string' },
       'no-trim': { type: 'boolean', default: false },
@@ -91,7 +91,7 @@ async function main() {
       inputs.map(async (f) => ({ name: f.name, text: await readFile(f.path, 'utf8') })),
     );
     const text = combineText(files, {
-      includeHeaders: !values['no-headers'],
+      includeHeaders: values.headers,
       ...(values.header !== undefined && { headerTemplate: values.header }),
       ...(values.separator !== undefined && { separator: unescapeSeparator(values.separator) }),
       trim: !values['no-trim'],

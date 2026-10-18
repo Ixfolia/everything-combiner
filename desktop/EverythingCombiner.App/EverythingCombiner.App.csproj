@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>EverythingCombiner</AssemblyName>
+    <RootNamespace>EverythingCombiner.App</RootNamespace>
+    <Product>Everything Combiner</Product>
+    <Version>0.2.0</Version>
+    <!-- Lets the Windows-only project build on Linux/macOS (e.g. in CI). -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <!-- `dotnet publish -c Release` produces one self-contained EverythingCombiner.exe
+       that runs without installing .NET. -->
+  <PropertyGroup>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Equivalent to UseWindowsForms, but also builds with SDKs that lack the
+         Windows Desktop SDK component (such as Linux distro builds of .NET). -->
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+    <Using Include="System.Drawing" />
+    <Using Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EverythingCombiner.Core\EverythingCombiner.Core.csproj" />
+  </ItemGroup>
+
+</Project>

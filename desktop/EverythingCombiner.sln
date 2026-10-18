@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverythingCombiner.Core", "EverythingCombiner.Core\EverythingCombiner.Core.csproj", "{73FDF12E-87EF-4EC2-B507-0603DD0E652B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverythingCombiner.Tests", "EverythingCombiner.Tests\EverythingCombiner.Tests.csproj", "{0F401425-8FE4-4745-95BC-170B194F05EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73FDF12E-87EF-4EC2-B507-0603DD0E652B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FDF12E-87EF-4EC2-B507-0603DD0E652B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FDF12E-87EF-4EC2-B507-0603DD0E652B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FDF12E-87EF-4EC2-B507-0603DD0E652B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F401425-8FE4-4745-95BC-170B194F05EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F401425-8FE4-4745-95BC-170B194F05EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F401425-8FE4-4745-95BC-170B194F05EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F401425-8FE4-4745-95BC-170B194F05EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -2,11 +2,12 @@
 
 export const defaultTextOptions = {
   // Write a header line with the source file name before each file's contents.
-  includeHeaders: true,
+  // Off by default so the output is just the combined text.
+  includeHeaders: false,
   // Header template. {name} = file name, {index} = 1-based position, {total} = file count.
   headerTemplate: '===== {name} =====',
   // Text placed between files. Escapes like \n are interpreted.
-  separator: '\n\n',
+  separator: '\n',
   // Trim leading/trailing whitespace from each file.
   trim: true,
   // Line ending style for the output: 'lf' or 'crlf'.

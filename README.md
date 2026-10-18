@@ -5,7 +5,42 @@ Combine many files into one. It currently has two combiners:
 - **Text files**: merge transcripts or any other `.txt` files into a single text file.
 - **PDF files**: merge PDFs into one PDF, with an optional page range for each file.
 
-Everything runs locally. In the web app, files are never uploaded anywhere.
+The combined `.txt` contains only the text of the input files, one after another (a line
+break is added between two files only when one is missing). The combined `.pdf` contains
+every page of each input PDF, in order. Everything runs locally; nothing is uploaded.
+
+## Windows app (EverythingCombiner.exe)
+
+A single, self-contained `EverythingCombiner.exe`. No installer and no .NET install needed.
+Double-click it to run.
+
+1. Pick the **Text files** or **PDF files** tab.
+2. Drag files or a whole folder onto the list, or use **Add files…** / **Add folder…**.
+   Files are added in natural name order (`part2.txt` before `part10.txt`).
+3. Reorder by dragging rows, with **Move up** / **Move down** (or Alt+↑ / Alt+↓), or with **Sort A→Z**.
+   Delete removes the selected rows.
+4. Click **Combine into one .txt…** (or **.pdf…**), choose where to save, and you're done.
+
+### Getting the exe
+
+- **From GitHub Actions:** every push that touches `desktop/` runs the *Build Windows exe*
+  workflow. Download `EverythingCombiner.exe` from the run's *Artifacts* section. Pushing a
+  tag such as `v0.2.0` also attaches the exe to a GitHub release.
+- **Build it yourself** (requires the .NET 8 SDK):
+
+  ```bash
+  dotnet publish desktop/EverythingCombiner.App -c Release -o dist
+  # -> dist/EverythingCombiner.exe
+  dotnet test desktop/EverythingCombiner.Tests
+  ```
+
+The C# source is in `desktop/`:
+
+```
+EverythingCombiner.Core/   TextCombiner, PdfCombiner (PDFsharp), NaturalStringComparer
+EverythingCombiner.App/    WinForms UI (MainForm, CombinerPanel)
+EverythingCombiner.Tests/  xUnit tests for the core library
+```
 
 ## Web app
 
@@ -23,7 +58,7 @@ through a server rather than double-clicking `index.html`.
 1. Drop `.txt` files (also `.md`, `.srt`, `.vtt`, `.log`, `.csv`) onto the page or click to pick them.
 2. Put them in order by dragging rows, using the ↑ / ↓ buttons, or using **Sort A→Z**.
    Sorting is natural, so `part2.txt` comes before `part10.txt`.
-3. Choose options:
+3. By default the output is just the combined text. Optional extras:
    - a header line per file (template supports `{name}`, `{index}`, `{total}`)
    - what goes between files (blank line, dashed line, or a custom separator)
    - trimming whitespace, skipping empty files, and LF or CRLF line endings
@@ -42,8 +77,8 @@ through a server rather than double-clicking `index.html`.
 # Combine every .txt in a folder (natural sort order) into one file
 node cli.js text -o transcripts.txt ./transcripts
 
-# Specific files, in the given order, without headers
-node cli.js text --no-headers --separator "\n---\n" -o out.txt intro.txt part1.txt part2.txt
+# Specific files, in the given order, with a file name header before each
+node cli.js text --headers --separator "\n\n" -o out.txt intro.txt part1.txt part2.txt
 
 # Merge PDFs, taking pages 1-3 and 5 from the second one
 node cli.js pdf -o merged.pdf cover.pdf report.pdf:1-3,5 appendix.pdf
@@ -51,7 +86,7 @@ node cli.js pdf -o merged.pdf cover.pdf report.pdf:1-3,5 appendix.pdf
 
 Run `node cli.js --help` for every option.
 
-## Project layout
+## Web app project layout
 
 ```
 index.html, styles.css   web app shell

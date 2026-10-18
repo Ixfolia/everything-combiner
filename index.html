@@ -44,15 +44,15 @@
 
       <form class="options" id="text-options">
         <h2>Options</h2>
-        <label class="check"><input type="checkbox" name="includeHeaders" checked> Add a header with each file name</label>
+        <label class="check"><input type="checkbox" name="includeHeaders"> Add a header with each file name</label>
         <label class="field">Header format
           <input type="text" name="headerTemplate" value="===== {name} =====">
           <small>Use {name}, {index} and {total}.</small>
         </label>
         <label class="field">Between files
           <select name="separator">
-            <option value="\n\n" selected>Blank line</option>
-            <option value="\n">New line only</option>
+            <option value="\n" selected>New line only</option>
+            <option value="\n\n">Blank line</option>
             <option value="\n\n----------\n\n">Dashed line</option>
             <option value="\n\n\n\n">Several blank lines</option>
             <option value="custom">Custom…</option>

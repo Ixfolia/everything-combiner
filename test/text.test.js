@@ -8,8 +8,13 @@ const files = [
   { name: 'b.txt', text: '﻿Second file' },
 ];
 
-test('combines with headers and a blank line by default', () => {
-  assert.equal(combineText(files), '===== a.txt =====\nHello\nworld\n\n===== b.txt =====\nSecond file\n');
+test('by default the output is just the file contents, one after another', () => {
+  assert.equal(combineText(files), 'Hello\nworld\nSecond file\n');
+});
+
+test('can add file name headers and a blank line between files', () => {
+  const out = combineText(files, { includeHeaders: true, separator: '\n\n' });
+  assert.equal(out, '===== a.txt =====\nHello\nworld\n\n===== b.txt =====\nSecond file\n');
 });
 
 test('can omit headers and use a custom separator', () => {
@@ -18,15 +23,16 @@ test('can omit headers and use a custom separator', () => {
 });
 
 test('header template supports index and total', () => {
-  const out = combineText(files, { headerTemplate: '[{index}/{total}] {name}', separator: '\n' });
+  const out = combineText(files, { includeHeaders: true, headerTemplate: '[{index}/{total}] {name}' });
   assert.match(out, /^\[1\/2\] a\.txt\n/);
   assert.match(out, /\[2\/2\] b\.txt\nSecond file\n$/);
 });
 
 test('skips empty files and keeps them when asked', () => {
   const withEmpty = [...files, { name: 'empty.txt', text: '  \n ' }];
-  assert.doesNotMatch(combineText(withEmpty), /empty\.txt/);
-  assert.match(combineText(withEmpty, { skipEmpty: false }), /===== empty\.txt =====\n$/);
+  const headers = { includeHeaders: true };
+  assert.doesNotMatch(combineText(withEmpty, headers), /empty\.txt/);
+  assert.match(combineText(withEmpty, { ...headers, skipEmpty: false }), /===== empty\.txt =====\n$/);
 });
 
 test('no trim keeps whitespace', () => {
@@ -35,7 +41,7 @@ test('no trim keeps whitespace', () => {
 });
 
 test('writes CRLF line endings', () => {
-  assert.equal(combineText([files[1]], { lineEndings: 'crlf' }), '===== b.txt =====\r\nSecond file\r\n');
+  assert.equal(combineText(files, { lineEndings: 'crlf' }), 'Hello\r\nworld\r\nSecond file\r\n');
 });
 
 test('empty input gives empty output', () => {
