@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Everything Combiner</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    { "imports": { "pdf-lib": "./vendor/pdf-lib.esm.min.js" } }
+  </script>
+  <script type="module" src="src/ui/app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Everything Combiner</h1>
+    <p class="tagline">Merge files right in your browser. Nothing is uploaded anywhere.</p>
+    <nav class="tabs" role="tablist" aria-label="Combiners">
+      <button type="button" role="tab" id="tab-text" aria-controls="panel-text" aria-selected="true">Text files</button>
+      <button type="button" role="tab" id="tab-pdf" aria-controls="panel-pdf" aria-selected="false" tabindex="-1">PDF files</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+
+    <!-- Text combiner -->
+    <section id="panel-text" class="panel" role="tabpanel" aria-labelledby="tab-text">
+      <div class="file-area" id="text-files">
+        <label class="drop" data-role="drop">
+          <input type="file" data-role="input" accept=".txt,.text,.md,.srt,.vtt,.log,.csv,text/*" multiple>
+          <strong>Drop .txt files here</strong>
+          <span>or click to choose transcripts to combine</span>
+        </label>
+        <div class="list-toolbar">
+          <span data-role="count">0 files</span>
+          <div class="toolbar-buttons">
+            <button type="button" data-action="sort-asc">Sort A→Z</button>
+            <button type="button" data-action="sort-desc">Sort Z→A</button>
+            <button type="button" data-action="clear">Clear</button>
+          </div>
+        </div>
+        <ol class="file-list" data-role="list"></ol>
+      </div>
+
+      <form class="options" id="text-options">
+        <h2>Options</h2>
+        <label class="check"><input type="checkbox" name="includeHeaders" checked> Add a header with each file name</label>
+        <label class="field">Header format
+          <input type="text" name="headerTemplate" value="===== {name} =====">
+          <small>Use {name}, {index} and {total}.</small>
+        </label>
+        <label class="field">Between files
+          <select name="separator">
+            <option value="\n\n" selected>Blank line</option>
+            <option value="\n">New line only</option>
+            <option value="\n\n----------\n\n">Dashed line</option>
+            <option value="\n\n\n\n">Several blank lines</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </label>
+        <label class="field" data-show-when="custom">Custom separator
+          <input type="text" name="customSeparator" value="\n\n">
+          <small>\n = new line, \t = tab.</small>
+        </label>
+        <label class="check"><input type="checkbox" name="trim" checked> Trim extra whitespace around each file</label>
+        <label class="check"><input type="checkbox" name="skipEmpty" checked> Skip empty files</label>
+        <label class="field">Line endings
+          <select name="lineEndings">
+            <option value="lf" selected>LF (Mac / Linux)</option>
+            <option value="crlf">CRLF (Windows)</option>
+          </select>
+        </label>
+        <label class="field">Output file name
+          <input type="text" name="fileName" value="combined.txt">
+        </label>
+        <div class="actions">
+          <button type="submit" class="primary">Combine &amp; download</button>
+          <button type="button" data-action="copy">Copy to clipboard</button>
+        </div>
+      </form>
+
+      <details class="preview" id="text-preview">
+        <summary>Preview <span data-role="preview-stats"></span></summary>
+        <pre data-role="preview-body"></pre>
+      </details>
+    </section>
+
+    <!-- PDF combiner -->
+    <section id="panel-pdf" class="panel" role="tabpanel" aria-labelledby="tab-pdf" hidden>
+      <div class="file-area" id="pdf-files">
+        <label class="drop" data-role="drop">
+          <input type="file" data-role="input" accept=".pdf,application/pdf" multiple>
+          <strong>Drop PDF files here</strong>
+          <span>or click to choose PDFs to merge</span>
+        </label>
+        <div class="list-toolbar">
+          <span data-role="count">0 files</span>
+          <div class="toolbar-buttons">
+            <button type="button" data-action="sort-asc">Sort A→Z</button>
+            <button type="button" data-action="sort-desc">Sort Z→A</button>
+            <button type="button" data-action="clear">Clear</button>
+          </div>
+        </div>
+        <ol class="file-list" data-role="list"></ol>
+      </div>
+
+      <form class="options" id="pdf-options">
+        <h2>Options</h2>
+        <p class="hint">Leave a file's page box empty to include every page, or enter ranges like <code>1-3, 5, 8-</code>.</p>
+        <label class="field">Output file name
+          <input type="text" name="fileName" value="combined.pdf">
+        </label>
+        <div class="actions">
+          <button type="submit" class="primary">Combine &amp; download</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

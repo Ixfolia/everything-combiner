@@ -1,0 +1,19 @@
+{
+  "name": "everything-combiner",
+  "version": "0.1.0",
+  "description": "Combine text files and PDFs into one file, in the browser or from the command line.",
+  "type": "module",
+  "bin": {
+    "everything-combiner": "cli.js"
+  },
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test",
+    "vendor": "node scripts/vendor.js",
+    "postinstall": "node scripts/vendor.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "pdf-lib": "1.17.1"
+  }
+}
