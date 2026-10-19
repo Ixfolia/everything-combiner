@@ -23,9 +23,12 @@ Double-click it to run.
 
 ### Getting the exe
 
+- **From Releases:** download `EverythingCombiner.exe` from the repository's *Releases* page.
 - **From GitHub Actions:** every push that touches `desktop/` runs the *Build Windows exe*
-  workflow. Download `EverythingCombiner.exe` from the run's *Artifacts* section. Pushing a
-  tag such as `v0.2.0` also attaches the exe to a GitHub release.
+  workflow. Download `EverythingCombiner.exe` from the run's *Artifacts* section.
+- **Making a release:** run the *Build Windows exe* workflow manually (Actions tab →
+  *Run workflow*) with a release tag such as `v0.3.0`, or push that tag. The workflow
+  builds the exe, creates the tag and release, and attaches the exe.
 - **Build it yourself** (requires the .NET 8 SDK):
 
   ```bash
